@@ -1,12 +1,18 @@
 package com.cmpe275.GameApp.Entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name="PLAYER")
 public class Player {
@@ -22,12 +28,20 @@ public class Player {
 	@Column(name="email")
     private String email;
 	@Column(name="description")
-    private String description;
-	@Column(name="sponsorid")
-    private Integer sponsorId;
-//    private List<Player> opponents;
-    
-	public Player(String firstname, String lastname, String email, String description, Integer sponsorId) {
+	private String description;
+	@Column(name = "sponsorid")
+	private Long sponsorId;
+
+ 
+	// @ManyToOne(cascade = CascadeType.ALL)
+	// @JoinColumn(name = "sponsorid", referencedColumnName = "id")
+	// private Long sponsorId;
+	// private Sponsor sponsor;
+   	// private List<Player> opponents;
+	public Player() {
+	}
+	
+	public Player(String firstname, String lastname, String email, String description, Long sponsorId) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -67,10 +81,10 @@ public class Player {
 		this.description = description;
 	}
 	
-	public Integer getSponsorId() {
+	public long getSponsorId() {
 		return sponsorId;
 	}
-	public void setSponsorId(Integer sponsorId) {
+	public void setSponsorId(long sponsorId) {
 		this.sponsorId = sponsorId;
 	}
 //	public List<Player> getOpponents() {
@@ -79,5 +93,15 @@ public class Player {
 //	public void setOpponents(List<Player> opponents) {
 //		this.opponents = opponents;
 //	}
+
+	
+
+	// public Sponsor getSponsor() {
+	// 	return sponsor;
+	// }
+
+	// public void setSponsor(Sponsor sponsor) {
+	// 	this.sponsor = sponsor;
+	// }
     
 }

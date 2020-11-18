@@ -18,4 +18,14 @@ public class PlayerService {
 	public Player createPlayer(Player PLAYER) {
 		return playerRepository.save(PLAYER);
 	}
+
+	public Player updatePlayer(Player player) {
+		return playerRepository.save(player);
+	}
+
+	public Player getPlayer(Long id) {
+		 Player player = playerRepository.getOne(id);
+        // System.out.println(sponsor);
+		return player;
+	}
 }

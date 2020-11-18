@@ -9,7 +9,9 @@ public class Address {
 	private String city;
 	private String state;
 	private String zip;
-	
+
+	public Address() {
+	}
 	public Address(String street, String city, String state, String zip) {
 		super();
 		this.street = street;
@@ -41,5 +43,6 @@ public class Address {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+
 
 }

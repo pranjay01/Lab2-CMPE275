@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cmpe275.GameApp.Entity.Player;
 
-public interface PlayerRepository extends JpaRepository<Player, Integer> {
+public interface PlayerRepository extends JpaRepository<Player, Long> {
 
 }
