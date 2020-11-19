@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,9 +34,9 @@ public class GameAppController {
 			@RequestParam(value="email") String email,
 			@RequestParam(value="description", required = false) String description,
 			@RequestParam(value = "sponsorId", required = false) Long sponsorId) {
-
-		Player player = new Player(firstname, lastname, email, description, sponsorId);
-		playerService.createPlayer(player);
+		
+		// Player player = new Player(firstname, lastname, email, description, sponsorId);
+		Player player =playerService.createPlayer(firstname, lastname, email, description, sponsorId);
 		return new ResponseEntity<Player>(player, HttpStatus.OK);
 	}
 
@@ -45,9 +46,9 @@ public class GameAppController {
 			@RequestParam(value="email") String email,
 			@RequestParam(value="description", required = false) String description,
 			@RequestParam(value = "sponsorId", required = false) Long sponsorId, @PathVariable("id") Long id) {
-		Player player = new Player(firstname, lastname, email, description, sponsorId);
-		player.setId(id);
-		return playerService.updatePlayer(player);
+		// Player player = new Player(firstname, lastname, email, description, sponsorId);
+		// player.setId(id);
+		return playerService.updatePlayer(id,firstname, lastname, email, description, sponsorId);
 	}
 
 	@GetMapping ("/player/{id}")
@@ -103,5 +104,13 @@ public class GameAppController {
 	public Sponsor deleteSponsor(@PathVariable("id") Long id) {
 		return sponsorService.deleteSponsor(id);
 	}
+
+	@PutMapping ("/opponents/{id1}/{id2}")
+	public ResponseEntity<String> makeOpponents(@PathVariable("id1") Long id1,
+			@PathVariable("id2") Long id2) {
+		playerService.makeOpponents(id1, id2);
+		return new ResponseEntity<String>("Opponent created", HttpStatus.OK);
+	}
+
 
 }
