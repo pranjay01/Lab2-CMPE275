@@ -33,4 +33,6 @@ public class SponsorService {
     	sponsorRepository.deleteById(id);
     	return sponsor;
     }
+
+	
 }
