@@ -1,18 +1,18 @@
 package com.cmpe275.GameApp.Entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonInclude (Include.NON_NULL)
 @Entity
 @Table(name="PLAYER")
 public class Player {
@@ -39,6 +39,7 @@ public class Player {
 	// private Sponsor sponsor;
    	// private List<Player> opponents;
 	public Player() {
+		
 	}
 	
 	public Player(String firstname, String lastname, String email, String description, Long sponsorId) {
@@ -80,11 +81,11 @@ public class Player {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public long getSponsorId() {
+	public Long getSponsorId() {
 		return sponsorId;
 	}
-	public void setSponsorId(long sponsorId) {
+
+	public void setSponsorId(Long sponsorId) {
 		this.sponsorId = sponsorId;
 	}
 //	public List<Player> getOpponents() {
@@ -93,15 +94,5 @@ public class Player {
 //	public void setOpponents(List<Player> opponents) {
 //		this.opponents = opponents;
 //	}
-
-	
-
-	// public Sponsor getSponsor() {
-	// 	return sponsor;
-	// }
-
-	// public void setSponsor(Sponsor sponsor) {
-	// 	this.sponsor = sponsor;
-	// }
     
 }

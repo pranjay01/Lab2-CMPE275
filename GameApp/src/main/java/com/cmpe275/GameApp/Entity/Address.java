@@ -2,7 +2,11 @@ package com.cmpe275.GameApp.Entity;
 
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Embeddable
+@JsonInclude (Include.NON_NULL)
 public class Address {
 
 	private String street;

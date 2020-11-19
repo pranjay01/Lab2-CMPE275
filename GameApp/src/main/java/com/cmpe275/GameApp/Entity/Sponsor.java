@@ -15,10 +15,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import javax.persistence.Column;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonInclude (Include.NON_NULL)
 @Entity
 @Table (name="SPONSOR")
 public class Sponsor {
@@ -51,10 +54,10 @@ public class Sponsor {
 		this.address = address;
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {
