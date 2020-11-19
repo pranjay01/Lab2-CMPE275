@@ -2,10 +2,15 @@ package com.cmpe275.GameApp.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.context.annotation.Lazy;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,7 +25,7 @@ public class Player {
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	@Column(name="firstname")
     private String firstname;
 	@Column(name="lastname")
@@ -29,8 +34,10 @@ public class Player {
     private String email;
 	@Column(name="description")
 	private String description;
-	@Column(name = "sponsorid")
-	private Long sponsorId;
+	
+	@ManyToOne
+	@JoinColumn(name = "sponsorid")
+	private Sponsor sponsor;
 
  
 	// @ManyToOne(cascade = CascadeType.ALL)
@@ -42,19 +49,19 @@ public class Player {
 		
 	}
 	
-	public Player(String firstname, String lastname, String email, String description, Long sponsorId) {
+	public Player(String firstname, String lastname, String email, String description, Sponsor sponsor) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.description = description;
-		this.sponsorId = sponsorId;
+		this.sponsor = sponsor;
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getFirstname() {
@@ -81,13 +88,15 @@ public class Player {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Long getSponsorId() {
-		return sponsorId;
+
+	public Sponsor getSponsor() {
+		return sponsor;
 	}
 
-	public void setSponsorId(Long sponsorId) {
-		this.sponsorId = sponsorId;
+	public void setSponsor(Sponsor sponsor) {
+		this.sponsor = sponsor;
 	}
+	
 //	public List<Player> getOpponents() {
 //		return opponents;
 //	}

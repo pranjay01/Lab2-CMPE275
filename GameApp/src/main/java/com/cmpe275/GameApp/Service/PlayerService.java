@@ -1,6 +1,7 @@
 package com.cmpe275.GameApp.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class PlayerService {
 		return playerRepository.save(player);
 	}
 
+	@Transactional
 	public Player getPlayer(Long id) {
 		return playerRepository.findById(id).orElse(null);
 	}

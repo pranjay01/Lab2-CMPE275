@@ -34,7 +34,13 @@ public class GameAppController {
 			@RequestParam(value="description", required = false) String description,
 			@RequestParam(value = "sponsorId", required = false) Long sponsorId) {
 
-		Player player = new Player(firstname, lastname, email, description, sponsorId);
+		Sponsor sponsor = null;
+		if(sponsorId != null) {
+			sponsor = new Sponsor();
+			sponsor.setId(sponsorId);
+		}
+		
+		Player player = new Player(firstname, lastname, email, description, sponsor);
 		playerService.createPlayer(player);
 		return new ResponseEntity<Player>(player, HttpStatus.OK);
 	}
@@ -45,7 +51,13 @@ public class GameAppController {
 			@RequestParam(value="email") String email,
 			@RequestParam(value="description", required = false) String description,
 			@RequestParam(value = "sponsorId", required = false) Long sponsorId, @PathVariable("id") Long id) {
-		Player player = new Player(firstname, lastname, email, description, sponsorId);
+		
+		Sponsor sponsor = null;
+		if(sponsorId != null) {
+			sponsor = new Sponsor();
+			sponsor.setId(sponsorId);
+		}
+		Player player = new Player(firstname, lastname, email, description, sponsor);
 		player.setId(id);
 		return playerService.updatePlayer(player);
 	}
