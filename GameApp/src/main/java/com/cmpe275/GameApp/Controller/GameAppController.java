@@ -1,7 +1,5 @@
 package com.cmpe275.GameApp.Controller;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cmpe275.GameApp.Entity.Address;
 import com.cmpe275.GameApp.Entity.Player;
 import com.cmpe275.GameApp.Entity.Sponsor;
+import com.cmpe275.GameApp.Service.PlayerDTODeep;
 import com.cmpe275.GameApp.Service.PlayerService;
+import com.cmpe275.GameApp.Service.SponsorDTODeep;
 import com.cmpe275.GameApp.Service.SponsorService;
 
 @RestController
@@ -29,39 +29,36 @@ public class GameAppController {
 	SponsorService sponsorService;
 
 	@PostMapping ("/player")
-	public ResponseEntity<Player> createPlayer(@RequestParam(value="firstname") String firstname, 
+	public PlayerDTODeep createPlayer(@RequestParam(value="firstname") String firstname, 
 			@RequestParam(value="lastname") String lastname,
 			@RequestParam(value="email") String email,
 			@RequestParam(value="description", required = false) String description,
 			@RequestParam(value = "sponsorId", required = false) Long sponsorId) {
 		
-		// Player player = new Player(firstname, lastname, email, description, sponsorId);
-		Player player =playerService.createPlayer(firstname, lastname, email, description, sponsorId);
-		return new ResponseEntity<Player>(player, HttpStatus.OK);
+		PlayerDTODeep player = playerService.createPlayer(firstname, lastname, email, description, sponsorId);
+		return player;
 	}
 
 	@PostMapping ("/player/{id}")
-	public Player updatePlayer(@RequestParam(value="firstname") String firstname, 
+	public PlayerDTODeep updatePlayer(@RequestParam(value="firstname") String firstname, 
 			@RequestParam(value="lastname") String lastname,
 			@RequestParam(value="email") String email,
 			@RequestParam(value="description", required = false) String description,
 			@RequestParam(value = "sponsorId", required = false) Long sponsorId, @PathVariable("id") Long id) {
-		// Player player = new Player(firstname, lastname, email, description, sponsorId);
-		// player.setId(id);
-		return playerService.updatePlayer(id,firstname, lastname, email, description, sponsorId);
+		PlayerDTODeep player = playerService.updatePlayer(id,firstname, lastname, email, description, sponsorId);
+		return player; 
 	}
 
 	@GetMapping ("/player/{id}")
-	public Player getPlayer(@PathVariable("id") Long id) {
-		Player player = playerService.getPlayer(id);
-		if(player == null)
-			throw new EntityNotFoundException();
-		return player;
+	public PlayerDTODeep getPlayer(@PathVariable("id") Long id) {
+		PlayerDTODeep player = playerService.getPlayer(id);
+		return player; 
 	}
 	
 	@DeleteMapping("/player/{id}")
-	public Player deletePlayer(@PathVariable("id") Long id) {
-		return playerService.deletePlayer(id);
+	public PlayerDTODeep deletePlayer(@PathVariable("id") Long id) {
+		PlayerDTODeep player = playerService.deletePlayer(id);
+		return player; 
 	}
 
 	@PostMapping ("/sponsor")
@@ -78,7 +75,7 @@ public class GameAppController {
 	}
 	
 	@PostMapping ("/sponsor/{id}")
-	public Sponsor updateSponsor(@RequestParam(value="name") String name, 
+	public SponsorDTODeep updateSponsor(@RequestParam(value="name") String name, 
 			@RequestParam(value="description",required = false) String description,
 			@RequestParam(value="street",required = false) String street,
 			@RequestParam(value="city", required = false) String city,
@@ -93,15 +90,13 @@ public class GameAppController {
 	}
 
 	@GetMapping("/sponsor/{id}")
-	public Sponsor geteSponsor(@PathVariable("id") Long id) {
-		Sponsor sponsor = sponsorService.getSponsor(id);
-		if(sponsor == null)
-			throw new EntityNotFoundException();
+	public SponsorDTODeep geteSponsor(@PathVariable("id") Long id) {
+		SponsorDTODeep sponsor = sponsorService.getSponsor(id);
 		return sponsor;
 	}
 	
 	@DeleteMapping("/sponsor/{id}")
-	public Sponsor deleteSponsor(@PathVariable("id") Long id) {
+	public SponsorDTODeep deleteSponsor(@PathVariable("id") Long id) {
 		return sponsorService.deleteSponsor(id);
 	}
 

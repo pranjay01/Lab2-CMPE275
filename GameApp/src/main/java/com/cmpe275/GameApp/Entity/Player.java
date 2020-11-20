@@ -3,26 +3,27 @@ package com.cmpe275.GameApp.Entity;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @JsonInclude(Include.NON_NULL)
 @Entity
 @Table(name = "PLAYER")
@@ -31,7 +32,7 @@ public class Player {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	@Column(name = "firstname")
 	private String firstname;
 	@Column(name = "lastname")
@@ -40,10 +41,10 @@ public class Player {
 	private String email;
 	@Column(name = "description")
 	private String description;
-	// @Column(name = "sponsorid")
-	// private Long sponsorId;
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "sponsorId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@LazyToOne(LazyToOneOption.NO_PROXY)
+	@JoinColumn(name = "sponsorid")
 	private Sponsor sponsor;
 
 	// @Transient
@@ -60,6 +61,7 @@ public class Player {
 	// private Long sponsorId;
 	// private Sponsor sponsor;
 	// private List<Player> opponents;
+	
 	public Player() {
 
 	}
@@ -72,12 +74,12 @@ public class Player {
 		this.description = description;
 		this.sponsor = sponsor;
 	}
-
-	public long getId() {
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -112,20 +114,6 @@ public class Player {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	// public Long getSponsorId() {
-	// 	return sponsorId;
-	// }
-
-	// public void setSponsorId(Long sponsorId) {
-	// 	this.sponsorId = sponsorId;
-	// }
-	//	public List<Player> getOpponents() {
-	//		return opponents;
-	//	}
-	//	public void setOpponents(List<Player> opponents) {
-	//		this.opponents = opponents;
-	//	}
 
 	@Transient
 	public List<Player> getOpponents() {

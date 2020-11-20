@@ -4,25 +4,22 @@ import java.util.List;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import javax.persistence.Column;
-
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonInclude (Include.NON_NULL)
 @Entity
 @Table (name="SPONSOR")
@@ -42,9 +39,9 @@ public class Sponsor {
   	@AttributeOverride( name = "zip", column = @Column(name = "zip"))
 	})
 	private Address address;
-	// @Transient
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch=FetchType.LAZY)
-	@JoinColumn(name = "sponsorid")
+	
+	@OneToMany(mappedBy = "sponsor")
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Player> players;
 	
 	public Sponsor() {
@@ -81,13 +78,6 @@ public class Sponsor {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-//	public List<Player> getPlayers() {
-//		return players;
-//	}
-//	public void setPlayers(List<Player> players) {
-//		this.players = players;
-//	}
-
 	public List<Player> getPlayers() {
 		return players;
 	}
