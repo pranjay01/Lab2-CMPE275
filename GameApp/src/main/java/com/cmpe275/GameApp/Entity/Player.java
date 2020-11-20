@@ -115,7 +115,6 @@ public class Player {
 		this.description = description;
 	}
 
-	@Transient
 	public List<Player> getOpponents() {
 		return opponents;
 	}

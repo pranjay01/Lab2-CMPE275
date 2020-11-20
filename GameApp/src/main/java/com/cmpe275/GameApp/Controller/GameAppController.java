@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,7 +40,7 @@ public class GameAppController {
 		return player;
 	}
 
-	@PostMapping ("/player/{id}")
+	@PatchMapping ("/player/{id}")
 	public PlayerDTODeep updatePlayer(@RequestParam(value="firstname") String firstname, 
 			@RequestParam(value="lastname") String lastname,
 			@RequestParam(value="email") String email,
@@ -74,7 +75,7 @@ public class GameAppController {
 		return sponsorService.createSponsor(sponsor);
 	}
 	
-	@PostMapping ("/sponsor/{id}")
+	@PutMapping ("/sponsor/{id}")
 	public SponsorDTODeep updateSponsor(@RequestParam(value="name") String name, 
 			@RequestParam(value="description",required = false) String description,
 			@RequestParam(value="street",required = false) String street,
