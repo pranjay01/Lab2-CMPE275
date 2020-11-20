@@ -40,7 +40,7 @@ public class GameAppController {
 		return player;
 	}
 
-	@PatchMapping ("/player/{id}")
+	@PutMapping ("/player/{id}")
 	public PlayerDTODeep updatePlayer(@RequestParam(value="firstname") String firstname, 
 			@RequestParam(value="lastname") String lastname,
 			@RequestParam(value="email") String email,
@@ -106,6 +106,13 @@ public class GameAppController {
 			@PathVariable("id2") Long id2) {
 		playerService.makeOpponents(id1, id2);
 		return new ResponseEntity<String>("Opponent created", HttpStatus.OK);
+	}
+
+	@DeleteMapping("/opponents/{id1}/{id2}")
+	public ResponseEntity<String> removeOpponent(@PathVariable("id1") Long id1,
+			@PathVariable("id2") Long id2) {
+		playerService.removeOpponents(id1, id2);
+		return new ResponseEntity<String>("Opponent removed", HttpStatus.OK);
 	}
 
 

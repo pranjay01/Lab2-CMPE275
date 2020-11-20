@@ -45,10 +45,16 @@ public class PlayerService {
 				throw new DataIntegrityViolationException("Sponsor ID does not exist");
 		}
 
-		Player player = new Player(firstname, lastname, email, description, sponsor);
-		player.setId(id);
-		if (!playerRepository.existsById(player.getId()))
+		// Player player = new Player(firstname, lastname, email, description, sponsor);
+		Player player = playerRepository.findById(id).orElse(null);
+		// player.setId(id);
+		if (player==null)
 			throw new EntityNotFoundException();
+		player.setFirstname(firstname);
+		player.setLastname(lastname);
+		player.setEmail(email);
+		player.setDescription(description);
+		player.setSponsor(sponsor);
 		return convertToPlayerDTO(playerRepository.save(player));
 	}
 
@@ -84,11 +90,29 @@ public class PlayerService {
 		playerRepository.save(player2);
 	}
 
+	public void removeOpponents(Long id1, Long id2) {
+		Player player1 = playerRepository.findById(id1).orElse(null);
+		Player player2 = playerRepository.findById(id2).orElse(null);
+		if (player1 == null || player2 == null) {
+			throw new EntityNotFoundException();
+		}
+		if (player1.getOpponents().contains(player2) && player2.getOpponents().contains(player1)) {
+			player1.getOpponents().remove(player2);
+			player2.getOpponents().remove(player1);
+			playerRepository.save(player1);
+			playerRepository.save(player2);
+		} else {
+			throw new DataIntegrityViolationException("Not Opponents");
+		}
+	}
+
 	private PlayerDTODeep convertToPlayerDTO(Player player) {
 		this.modelMapper.typeMap(Player.class, PlayerDTODeep.class).addMapping(Player::getSponsor, PlayerDTODeep::setSponsor);
 		this.modelMapper.typeMap(Player.class, PlayerDTODeep.class).addMapping(Player::getOpponents, PlayerDTODeep::setOpponents);
 		PlayerDTODeep playerDTO = modelMapper.map(player, PlayerDTODeep.class);
 		return playerDTO;
 	}
+
+	
 
 }
