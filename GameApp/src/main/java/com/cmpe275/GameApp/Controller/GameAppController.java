@@ -29,6 +29,25 @@ public class GameAppController {
 	@Autowired
 	SponsorService sponsorService;
 
+	
+	/** 
+	 * Ping API to TEST application
+	 * @return String
+	 */
+	@GetMapping ("/ping")
+	public String getPlayer() {
+		return "GameApp CMPE-275 running";
+	}
+
+	
+	/** 
+	 * @param firstname First Name of the Player
+	 * @param lastname Last Name of the Player
+	 * @param email Email Address of the Player
+	 * @param description Description about the Player
+	 * @param sponsorId Sponsor Id of the Player
+	 * @return PlayerDTODeep Player Object Deep Copy
+	 */
 	@PostMapping ("/player")
 	public PlayerDTODeep createPlayer(@RequestParam(value="firstname") String firstname, 
 			@RequestParam(value="lastname") String lastname,
@@ -40,6 +59,16 @@ public class GameAppController {
 		return player;
 	}
 
+	
+	/** 
+	 * @param firstname First Name of the Player
+	 * @param lastname Last Name of the Player
+	 * @param email Email Address of the Player
+	 * @param description Description about the Player
+	 * @param sponsorId Sponsor Id of the Player
+	 * @param id Path Paramater (Id of the Player to be updated)
+	 * @return PlayerDTODeep Player Object Deep Copy
+	 */
 	@PutMapping ("/player/{id}")
 	public PlayerDTODeep updatePlayer(@RequestParam(value="firstname") String firstname, 
 			@RequestParam(value="lastname") String lastname,
@@ -50,18 +79,38 @@ public class GameAppController {
 		return player; 
 	}
 
+	
+	/** 
+	 * @param id Path Variable (Id of the Player to Get)
+	 * @return PlayerDTODeep Player Object Deep Copy
+	 */
 	@GetMapping ("/player/{id}")
 	public PlayerDTODeep getPlayer(@PathVariable("id") Long id) {
 		PlayerDTODeep player = playerService.getPlayer(id);
 		return player; 
 	}
 	
+	
+	/** 
+	 * @param id Path Variable ( Id of the Player to be Deleted)
+	 * @return PlayerDTODeep Player Object Deep Copy 
+	 */
 	@DeleteMapping("/player/{id}")
 	public PlayerDTODeep deletePlayer(@PathVariable("id") Long id) {
 		PlayerDTODeep player = playerService.deletePlayer(id);
 		return player; 
 	}
 
+	
+	/** 
+	 * @param name Name of the Sponsor
+	 * @param description Description for the Sponsor
+	 * @param street Address Street of the Sponsor
+	 * @param city City of the Sponsor
+	 * @param state State of the sponsor
+	 * @param zip Zip code of the sponsor
+	 * @return Sponsor object (Details of the new Sponsor Created)
+	 */
 	@PostMapping ("/sponsor")
 	public Sponsor createSponsor(@RequestParam(value="name") String name, 
 			@RequestParam(value="description",required = false) String description,
@@ -75,6 +124,16 @@ public class GameAppController {
 		return sponsorService.createSponsor(sponsor);
 	}
 	
+	
+	/** 
+	* @param name Name of the Sponsor
+	 * @param description Description for the Sponsor
+	 * @param street Address Street of the Sponsor
+	 * @param city City of the Sponsor
+	 * @param state State of the sponsor
+	 * @param zip Zip code of the sponsor
+	 * @return SponsorDTODeep Deep copy of the updated sponsor object
+	 */
 	@PutMapping ("/sponsor/{id}")
 	public SponsorDTODeep updateSponsor(@RequestParam(value="name") String name, 
 			@RequestParam(value="description",required = false) String description,
@@ -90,17 +149,33 @@ public class GameAppController {
 		return sponsorService.updateSponsor(sponsor);
 	}
 
+	
+	/** 
+	 * @param id Sponsor Id to find in DB
+	 * @return SponsorDTODeep Deep copy of the sponsor object
+	 */
 	@GetMapping("/sponsor/{id}")
 	public SponsorDTODeep geteSponsor(@PathVariable("id") Long id) {
 		SponsorDTODeep sponsor = sponsorService.getSponsor(id);
 		return sponsor;
 	}
 	
+	
+	/** 
+	 * @param id Id of the sponsor to Delete
+	 * @return SponsorDTODeep deep copy of the sponsor object
+	 */
 	@DeleteMapping("/sponsor/{id}")
 	public SponsorDTODeep deleteSponsor(@PathVariable("id") Long id) {
 		return sponsorService.deleteSponsor(id);
 	}
 
+	
+	/** 
+	 * @param id1 Id of the Player one
+	 * @param id2 Id of the Player two
+	 * @return ResponseEntity<String> Response of the API
+	 */
 	@PutMapping ("/opponents/{id1}/{id2}")
 	public ResponseEntity<String> makeOpponents(@PathVariable("id1") Long id1,
 			@PathVariable("id2") Long id2) {
@@ -108,6 +183,12 @@ public class GameAppController {
 		return new ResponseEntity<String>("Opponent created", HttpStatus.OK);
 	}
 
+	
+	/** 
+	 * @param id1 Id of the Player One
+	 * @param id2 Id of the Player Two
+	 * @return ResponseEntity<String> Response of the API
+	 */
 	@DeleteMapping("/opponents/{id1}/{id2}")
 	public ResponseEntity<String> removeOpponent(@PathVariable("id1") Long id1,
 			@PathVariable("id2") Long id2) {

@@ -75,58 +75,128 @@ public class Player {
 		this.sponsor = sponsor;
 	}
 	
+	
+	/** 
+	 * Getter for the Player Id
+	 * @return Long
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	
+	/** 
+	 * Setter for the Player Id
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	
+	/** 
+	 * Getter for the Player First name
+	 * @return String
+	 */
 	public String getFirstname() {
 		return firstname;
 	}
 
+	
+	/** 
+	 * Setter for the Player First name
+	 * @param firstname
+	 */
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
+	
+	/** 
+	 * Getter for the Player Last Name
+	 * @return String
+	 */
 	public String getLastname() {
 		return lastname;
 	}
 
+	
+	/** 
+	 * Setter for the Player Last name
+	 * @param lastname
+	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
 
+	
+	/** 
+	 * Getter for the Player Email Address
+	 * @return String
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	
+	/** 
+	 * Setter for the Player Email Address
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	
+	/** 
+	 * Getter for the Player Description
+	 * @return String
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	
+	/** 
+	 * Setter for the Player Description
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	
+	/** 
+	 * Getter for the Opponents List of Player
+	 * @return List<Player>
+	 */
 	public List<Player> getOpponents() {
 		return opponents;
 	}
 
+	
+	/** 
+	 * Setter for the Opponent List if the Player
+	 * @param opponents
+	 */
 	public void setOpponents(List<Player> opponents) {
 		this.opponents = opponents;
 	}
 
+	
+	/** 
+	 * Getter for the Sponsor of the Player
+	 * @return Sponsor
+	 */
 	public Sponsor getSponsor() {
 		return sponsor;
 	}
 
+	
+	/** 
+	 * Setter for the Sponsor of the Player
+	 * @param sponsor
+	 */
 	public void setSponsor(Sponsor sponsor) {
 		this.sponsor = sponsor;
 	}

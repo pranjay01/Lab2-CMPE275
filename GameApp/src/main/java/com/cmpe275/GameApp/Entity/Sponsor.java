@@ -54,34 +54,84 @@ public class Sponsor {
 		this.address = address;
 	}
 	
+	
+	/** 
+	 * Get the Id of the Sponsor
+	 * @return Long
+	 */
 	public Long getId() {
 		return id;
 	}
+	
+	/** 
+	 * Set the Id of the Sponsor
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	/** 
+	 * Getter for the Sponsor name
+	 * @return String
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/** 
+	 * Setter for the sponsor name
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/** 
+	 * Getter for the Sponsor's description
+	 * @return String
+	 */
 	public String getDescription() {
 		return description;
 	}
+	
+	/** 
+	 * Setter for the Sponsor's description
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	/** 
+	 * Getter for the Address of the Sponsor
+	 * @return Address
+	 */
 	public Address getAddress() {
 		return address;
 	}
+	
+	/** 
+	 * Setter for the address of the Sponsor
+	 * @param address
+	 */
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
+	/** 
+	 * Get all the player list of the sponsor
+	 * @return List<Player>
+	 */
 	public List<Player> getPlayers() {
 		return players;
 	}
 
+	
+	/** 
+	 * Set the new Player lost for the Sponsor
+	 * @param players
+	 */
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
