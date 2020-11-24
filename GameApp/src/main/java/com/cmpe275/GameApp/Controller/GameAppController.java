@@ -143,10 +143,11 @@ public class GameAppController {
 			@RequestParam(value = "zip", required = false) String zip,
 			@PathVariable("id") Long id) {
 
-		Address address = new Address(street, city, state, zip);
-		Sponsor sponsor = new Sponsor(name, description, address);
-		sponsor.setId(id);
-		return sponsorService.updateSponsor(sponsor);
+		// Address address = new Address(street, city, state, zip);
+		// Sponsor sponsor = new Sponsor(name, description, address);
+		// sponsor.setId(id);
+	return	sponsorService.updateSponsor(name, description,street, city, state, zip,id);
+		// return sponsorService.getSponsor(id);
 	}
 
 	

@@ -6,20 +6,20 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.cmpe275.GameApp.Entity.Address;
 
 import com.cmpe275.GameApp.Entity.Sponsor;
 import com.cmpe275.GameApp.Repository.SponsorRepository;
 
 @Service
 public class SponsorService {
-	
-    @Autowired
+
+	@Autowired
 	SponsorRepository sponsorRepository;
-    
-    @Autowired
-    ModelMapper modelMapper;
-	
-    
+
+	@Autowired
+	ModelMapper modelMapper;
+
 	/** 
 	 * Create Sponsor Method
 	 * @param sponsor Sponsor Object
@@ -29,59 +29,79 @@ public class SponsorService {
 	public Sponsor createSponsor(Sponsor sponsor) {
 		return sponsorRepository.save(sponsor);
 	}
-	
-	
-	/** 
-	 * Method for Updating the Sponsor
-	 * @param sponsor
-	 * @return SponsorDTODeep
-	 */
+
+	// /** 
+	//  * Method for Updating the Sponsor
+	//  * @param sponsor
+	//  * @return SponsorDTODeep
+	//  */
+	// @Transactional
+	// public Sponsor updateSponsor(Sponsor sponsor) {
+	// 	if(!sponsorRepository.existsById(sponsor.getId()))
+	// 		throw new EntityNotFoundException("Sponsor Id Does Not Exist!");
+	// 	// Sponsor updatedSponsor=	sponsorRepository.save(sponsor);
+	// 		// Sponsor updatedSponsor = sponsorRepository.findById(sponsor.getId()).orElse(null); 
+	// 		// updatedSponsor.getPlayers();
+	// 		// return convertToSponsorDTO(updatedSponsor);
+	// 		return sponsorRepository.save(sponsor);
+	// }
+
 	@Transactional
-	public SponsorDTODeep updateSponsor(Sponsor sponsor) {
-		if(!sponsorRepository.existsById(sponsor.getId()))
-			throw new EntityNotFoundException("Sponsor Id Does Not Exist!");
-		sponsorRepository.save(sponsor);
-		Sponsor updatedSponsor = sponsorRepository.findById(sponsor.getId()).orElse(null); 
-		return convertToSponsorDTO(updatedSponsor);
+	public SponsorDTODeep updateSponsor(String name, String description, String street, String city, String state,
+			String zip, Long id) {
+		// Sponsor sponsor = null;
+		Sponsor sponsor = sponsorRepository.findById(id).orElse(null);
+		if (sponsor==null)
+			throw new EntityNotFoundException("Sponsor Not Exists!");
+		Address address = sponsor.getAddress();
+		address.setCity(city);
+		address.setState(state);
+		address.setStreet(street);
+		address.setZip(zip);
+		sponsor.setAddress(address);
+		sponsor.setDescription(description);
+		sponsor.setName(name);
+		return convertToSponsorDTO(sponsorRepository.save(sponsor));
+
 	}
 
-	
 	/** 
 	 * Get the Sponsor value by Id
 	 * @param id Id of the sponsor
 	 * @return SponsorDTODeep Deep copy of the sponsor object
 	 */
 	@Transactional
-    public SponsorDTODeep getSponsor(Long id) {
-        Sponsor sponsor = sponsorRepository.findById(id).orElse(null);
-        if(sponsor == null)
+	public SponsorDTODeep getSponsor(Long id) {
+		Sponsor sponsor = sponsorRepository.findById(id).orElse(null);
+		if (sponsor == null)
 			throw new EntityNotFoundException("Sponsor Id Does Not Exist!");
-       
-        return convertToSponsorDTO(sponsor);
+
+		return convertToSponsorDTO(sponsor);
 	}
-    
-	
+
 	/** 
 	 * Delete the sponsor object By Id
 	 * @param id Id of the Sponsor
 	 * @return SponsorDTODeep Deep copy of the Deleted Sponsor Object
 	 */
 	@Transactional
-    public SponsorDTODeep deleteSponsor(Long id) {
-    	Sponsor sponsor = sponsorRepository.findById(id).orElse(null);
-    	sponsorRepository.deleteById(id);
-    	return convertToSponsorDTO(sponsor);
-    }
+	public SponsorDTODeep deleteSponsor(Long id) {
+		Sponsor sponsor = sponsorRepository.findById(id).orElse(null);
+		sponsorRepository.deleteById(id);
+		return convertToSponsorDTO(sponsor);
+	}
 
-    
 	/** 
 	 * Convert the spnsor object to DTO object
 	 * @param sponsor Sponsor object to be converted
 	 * @return SponsorDTODeep Deep copy of the sponsor object
 	 */
 	private SponsorDTODeep convertToSponsorDTO(Sponsor sponsor) {
-    	this.modelMapper.typeMap(Sponsor.class, SponsorDTODeep.class).addMapping(Sponsor::getPlayers, SponsorDTODeep::setPlayers);
-    	SponsorDTODeep sponsorDTO = modelMapper.map(sponsor, SponsorDTODeep.class);
-    	return sponsorDTO;
-    }
+		this.modelMapper.typeMap(Sponsor.class, SponsorDTODeep.class).addMapping(Sponsor::getPlayers,
+				SponsorDTODeep::setPlayers);
+		SponsorDTODeep sponsorDTO = modelMapper.map(sponsor, SponsorDTODeep.class);
+		return sponsorDTO;
+	}
+
+	
 }
