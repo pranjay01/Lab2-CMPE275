@@ -30,22 +30,11 @@ public class SponsorService {
 		return sponsorRepository.save(sponsor);
 	}
 
-	// /** 
-	//  * Method for Updating the Sponsor
-	//  * @param sponsor
-	//  * @return SponsorDTODeep
-	//  */
-	// @Transactional
-	// public Sponsor updateSponsor(Sponsor sponsor) {
-	// 	if(!sponsorRepository.existsById(sponsor.getId()))
-	// 		throw new EntityNotFoundException("Sponsor Id Does Not Exist!");
-	// 	// Sponsor updatedSponsor=	sponsorRepository.save(sponsor);
-	// 		// Sponsor updatedSponsor = sponsorRepository.findById(sponsor.getId()).orElse(null); 
-	// 		// updatedSponsor.getPlayers();
-	// 		// return convertToSponsorDTO(updatedSponsor);
-	// 		return sponsorRepository.save(sponsor);
-	// }
-
+	/** 
+	 * Method for Updating the Sponsor
+	 * @param sponsor
+	 * @return SponsorDTODeep
+	 */
 	@Transactional
 	public SponsorDTODeep updateSponsor(String name, String description, String street, String city, String state,
 			String zip, Long id) {
