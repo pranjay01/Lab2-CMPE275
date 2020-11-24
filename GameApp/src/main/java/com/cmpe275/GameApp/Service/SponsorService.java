@@ -40,7 +40,9 @@ public class SponsorService {
 	public SponsorDTODeep updateSponsor(Sponsor sponsor) {
 		if(!sponsorRepository.existsById(sponsor.getId()))
 			throw new EntityNotFoundException("Sponsor Id Does Not Exist!");
-		return convertToSponsorDTO(sponsorRepository.save(sponsor));	
+		sponsorRepository.save(sponsor);
+		Sponsor updatedSponsor = sponsorRepository.findById(sponsor.getId()).orElse(null); 
+		return convertToSponsorDTO(updatedSponsor);
 	}
 
 	
